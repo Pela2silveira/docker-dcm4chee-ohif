@@ -34,7 +34,8 @@ add_user:
 	docker exec -it dcm4chee-keycloak-1 kcadm.sh config credentials --server http://dcm4chee-keycloak-1:8880/auth --realm master --user ${KEYCLOAK_USER} --password ${KEYCLOAK_PASSWORD};
 	docker exec -it dcm4chee-keycloak-1 kcadm.sh create users -r dcm4che -s username=imagenes -s enabled=true;
 
-all: 
+all:
+	mkdir conf
 	make configure
 	make run
 	sleep 20
