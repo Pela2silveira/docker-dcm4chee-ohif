@@ -3,6 +3,8 @@ include *.env
 configure:
 	sed 's/<andes-secret>/${ANDES_SECRET}/g' templates/andes.json.template > conf/andes.json;
 	sed 's/<docker-host>/${ARCHIVE_HOST}/g' templates/ui.json.template > conf/ui.json;
+	sed 's/<aet>/${AE_TITLE}/g' templates/dicom-dcm4chee-arc.properties.template > conf/dicom-dcm4chee-arc.properties;
+	sed 's/<aet>/${AE_TITLE}/g' templates/weasis-pacs-connector.properties.template > conf/weasis-pacs-connector.properties;
 
 run:
 	make configure
@@ -34,6 +36,9 @@ add_user:
 	docker exec -it dcm4chee-keycloak-1 kcadm.sh config credentials --server http://dcm4chee-keycloak-1:8880/auth --realm master --user ${KEYCLOAK_USER} --password ${KEYCLOAK_PASSWORD};
 	docker exec -it dcm4chee-keycloak-1 kcadm.sh create users -r dcm4che -s username=imagenes -s enabled=true;
 
+deploy_weasis:
+	docker exec -it dcm4chee-arc-1 jboss-cli.sh -c --controller=localhost:9990
+	
 all:
 	mkdir conf
 	make configure
