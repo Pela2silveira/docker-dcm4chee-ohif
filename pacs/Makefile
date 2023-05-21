@@ -37,11 +37,22 @@ add_user:
 	docker exec -it dcm4chee-keycloak-1 kcadm.sh create users -r dcm4che -s username=imagenes -s enabled=true;
 
 deploy_weasis:
-	docker exec -it dcm4chee-arc-1 jboss-cli.sh -c --controller=localhost:9990
-	
+	docker cp deployments/weasis-ext.war dcm4chee-arc-1:weasis-ext.war
+	docker cp deployments/weasis.war dcm4chee-arc-1:weasis.war
+	docker cp deployments/weasis-i18n.war dcm4chee-arc-1:weasis-i18n.war
+	docker cp deployments/weasis-pacs-connector.war dcm4chee-arc-1:weasis-pacs-connector.war
+	docker exec -it dcm4chee-arc-1 jboss-cli.sh -Djavax.net.ssl.trustStore=/opt/wildfly/domain/configuration/https.store -c --controller=localhost:9990 --command="deploy --force weasis-pacs-connector.war"
+	docker exec -it dcm4chee-arc-1 jboss-cli.sh -Djavax.net.ssl.trustStore=/opt/wildfly/domain/configuration/https.store -c --controller=localhost:9990 --command="deploy --force weasis-i18n.war"
+	docker exec -it dcm4chee-arc-1 jboss-cli.sh -Djavax.net.ssl.trustStore=/opt/wildfly/domain/configuration/https.store -c --controller=localhost:9990 --command="deploy --force weasis-ext.war"
+	docker exec -it dcm4chee-arc-1 jboss-cli.sh -Djavax.net.ssl.trustStore=/opt/wildfly/domain/configuration/https.store -c --controller=localhost:9990 --command="deploy --force weasis.war"
+	docker cp conf/weasis-pacs-connector.properties dcm4chee-arc-1:/tmp/weasis-pacs-connector.properties
+	docker cp conf/dicom-dcm4chee-arc.properties dcm4chee-arc-1:/tmp/dicom-dcm4chee-arc.properties
+	docker exec -it dcm4chee-arc-1 jboss-cli.sh -Djavax.net.ssl.trustStore=/opt/wildfly/domain/configuration/https.store -c --controller=localhost:9990 --command="deployment-overlay add --name=dcm4chee-arc --deployments=weasis-pacs-connector.war --content=WEB-INF/classes/weasis-pacs-connector.properties=/tmp/weasis-pacs-connector.properties,WEB-INF/classes/dicom-dcm4chee-arc.properties=/tmp/dicom-dcm4chee-arc.properties --redeploy-affected"
+
 all:
-	mkdir conf
+	mkdir -p conf
 	make configure
 	make run
 	sleep 20
 	make add_clients
+	make deploy_weasis

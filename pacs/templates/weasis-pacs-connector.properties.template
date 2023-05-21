@@ -4,7 +4,7 @@
 ##### ${server.host} is the server name of weasis-pacs-connector and ${server.base.url} the base URL (scheme://host:port)
 
 ##### DICOM AETitle for weasis-pacs-connector
-aet=<aet>-CONNECTOR
+aet=<aet>-CONN
 
 ##### Build the xml manifest even if no image has been found
 ##### And no WARN message in Weasis UI when no images have been found with given parameters
