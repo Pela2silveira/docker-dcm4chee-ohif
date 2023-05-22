@@ -1,3 +1,4 @@
-./conf/
 *.env
-./nginx/conf/sites-enabled/
+*.pem
+./nginx/conf/sites-enabled
+./pacs/conf

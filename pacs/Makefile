@@ -2,6 +2,7 @@ include *.env
 
 configure:
 	echo "generating configuration files..."
+	mkdir -p conf
 	sed 's/<andes-secret>/${ANDES_SECRET}/g' templates/andes.json.template > conf/andes.json;
 	sed 's/<docker-host>/${ARCHIVE_HOST}/g' templates/ui.json.template > conf/ui.json;
 	sed 's/<aet>/${AE_TITLE}/g' templates/dicom-dcm4chee-arc.properties.template > conf/dicom-dcm4chee-arc.properties;
@@ -72,7 +73,6 @@ deploy_weasis:
 	docker exec -it dcm4chee-ldap-1 ldapmodify -x -w "${LDAP_SECRET}" -D "cn=admin,dc=dcm4che,dc=org" -H ldap://localhost:389 -f weasis.ldif
 
 all:
-	mkdir -p conf
 	make configure
 	make run
 	sleep 20
