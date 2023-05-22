@@ -1,0 +1,6 @@
+dn: dcmuiPermissionName=Action - Studies - Open Viewer,dcmuiConfigName=defau
+ lt,dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=
+ org
+changetype: modify
+add: dcmAcceptedUserRole
+dcmAcceptedUserRole: user
