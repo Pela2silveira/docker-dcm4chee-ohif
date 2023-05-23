@@ -40,6 +40,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+      - ./resources/keycloak-bg.png:/opt/keycloak/themes/keycloak/login/resources/img/keycloak-bg.png
       - /var/local/dcm4chee-arc/keycloak:/opt/keycloak/standalone
   db:
     restart: always
