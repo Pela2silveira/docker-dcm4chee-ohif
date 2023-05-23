@@ -8,6 +8,7 @@ configure:
 	sed 's/<aet>/${AE_TITLE}/g' templates/dicom-dcm4chee-arc.properties.template > conf/dicom-dcm4chee-arc.properties;
 	sed 's/<aet>/${AE_TITLE}/g' templates/weasis-pacs-connector.properties.template > conf/weasis-pacs-connector.properties;
 	sed 's/<archive-name>/${ARCHIVE_DEVICE_NAME}/g' templates/weasis.ldif.template > conf/weasis.ldif;
+	sed 's/<archive-name>/${ARCHIVE_DEVICE_NAME}/g' templates/mwl.ldif.template > conf/mwl.ldif;
 
 run:
 	make configure
@@ -71,6 +72,10 @@ deploy_weasis:
 	echo "configuring permision for user to viewer.."
 	docker cp conf/weasis.ldif dcm4chee-ldap-1:weasis.ldif
 	docker exec -it dcm4chee-ldap-1 ldapmodify -x -w "${LDAP_SECRET}" -D "cn=admin,dc=dcm4che,dc=org" -H ldap://localhost:389 -f weasis.ldif
+
+configure_pacs:
+	docker cp conf/mwl.ldif dcm4chee-ldap-1:mwl.ldif
+	docker exec -it dcm4chee-ldap-1 ldapmodify -x -w "${LDAP_SECRET}" -D "cn=admin,dc=dcm4che,dc=org" -H ldap://localhost:389 -f mwl.ldif
 
 all:
 	make configure
