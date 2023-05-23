@@ -83,3 +83,5 @@ all:
 	sleep 20
 	make add_clients
 	make deploy_weasis
+	make configure_pacs
+
