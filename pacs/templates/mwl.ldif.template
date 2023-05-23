@@ -1,25 +1,19 @@
-  version: 1
-  dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
-  changetype: modify
-  add: hl7PSUMWL
-  hl7PSUMWL: TRUE
+dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
+changetype: modify
+add: hl7PSUMWL
+hl7PSUMWL: TRUE
 
-  dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
-  changetype: modify
-  add: hl7PSUDelay
-  hl7PSUDelay: PT1M
+dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
+changetype: modify
+add: hl7PSUDelay
+hl7PSUDelay: PT1M
 
-  dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
-  changetype: modify
-  add: hl7PSUTaskPollingInterval
-  hl7PSUTaskPollingInterval: PT1M
-  
-  dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
-  changetype: modify
-  add: hl7PSUTaskFetchSize
-  hl7PSUTaskFetchSize: 500
+dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
+changetype: modify
+add: hl7PSUTaskPollingInterval
+hl7PSUTaskPollingInterval: PT1M
 
-  dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
-  changetype: modify
-  delete: dcmHideSPSWithStatusFromMWL
-  dcmHideSPSWithStatusFromMWL: COMPLETED   
+dn: dicomDeviceName=<archive-name>,cn=Devices,cn=DICOM Configuration,dc=dcm4che,dc=org
+changetype: modify
+add: hl7PSUTaskFetchSize
+hl7PSUTaskFetchSize: 500
