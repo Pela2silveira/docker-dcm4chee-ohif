@@ -7,16 +7,16 @@ configure:
 	sed 's/<pacs-host>/${PACS_HOST}/g' templates/sites-enabled/pacs > conf/sites-enabled/pacs;
 
 run:
-	docker compose -p dcm4chee up -d
+	docker compose -p nginx-ohif up -d
 
 stop:
-	docker compose -p dcm4chee stop
+	docker compose -p nginx-ohif stop
 
 start:
-	docker compose -p dcm4chee start
+	docker compose -p nginx-ohif start
 
 delete:
-	docker compose -p dcm4chee down
+	docker compose -p nginx-ohif down
 
 all: 
 	make configure
