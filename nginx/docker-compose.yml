@@ -1,6 +1,7 @@
 version: "3"
 services:
   nginx:
+    container_name: nginx
     image: ohif/viewer
     ports:
       - "80:80"
