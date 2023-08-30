@@ -7,16 +7,16 @@ configure:
         sed 's/<pacs-host>/${PACS_HOST}/g;s/<docker-host>/${ARCHIVE_HOST}/g' templates/sites-enabled/pacs > conf/sites-enabled/pacs;
 
 run:
-	docker compose -p nginx-ohif up -d
+	${DOCKER_COMPOSE_CMD} -p nginx-ohif up -d
 
 stop:
-	docker compose -p nginx-ohif stop
+	${DOCKER_COMPOSE_CMD} -p nginx-ohif stop
 
 start:
-	docker compose -p nginx-ohif start
+	${DOCKER_COMPOSE_CMD} -p nginx-ohif start
 
 delete:
-	docker compose -p nginx-ohif down
+	${DOCKER_COMPOSE_CMD} -p nginx-ohif down
 
 all: 
 	make configure
