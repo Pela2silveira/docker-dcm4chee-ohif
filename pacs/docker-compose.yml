@@ -72,7 +72,7 @@ services:
     environment:
       WILDFLY_CHOWN: /opt/wildfly/standalone /storage
       WILDFLY_WAIT_FOR: ldap:389 db:5432
-      HTTP_PROXY_ADDRESS_FORWARDING: true
+      HTTP_PROXY_ADDRESS_FORWARDING: "true"
       REDIRECT_HTTPS_PORT: 443
     depends_on:
       - ldap
