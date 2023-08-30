@@ -12,16 +12,16 @@ configure:
 
 run:
 	make configure
-	docker compose -p dcm4chee up -d
+	${DOCKER_COMPOSE_CMD} -p dcm4chee up -d
 
 stop:
-	docker compose -p dcm4chee stop
+	${DOCKER_COMPOSE_CMD} -p dcm4chee stop
 
 start:
-	docker compose -p dcm4chee start
+	${DOCKER_COMPOSE_CMD} -p dcm4chee start
 
 make delete:
-	docker compose -p dcm4chee down
+	${DOCKER_COMPOSE_CMD} -p dcm4chee down
 	echo "deleting configuration files.."
 	sudo rm -r conf/*
 	echo "deleting archive and keycloak servers..."
@@ -29,7 +29,7 @@ make delete:
 	sudo rm -rf /var/local/dcm4chee-arc/keycloak
 
 delete_all:
-	docker compose -p dcm4chee down
+	${DOCKER_COMPOSE_CMD} -p dcm4chee down
 	echo "deleting configuration files.."
 	rm -r conf/*
 	echo "this will delete all images and running servers..."
