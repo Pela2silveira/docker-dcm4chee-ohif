@@ -20,7 +20,7 @@ stop:
 start:
 	${DOCKER_COMPOSE_CMD} -p dcm4chee start
 
-make delete:
+delete:
 	${DOCKER_COMPOSE_CMD} -p dcm4chee down
 	echo "deleting configuration files.."
 	sudo rm -r conf/*
