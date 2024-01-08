@@ -1,0 +1,28 @@
+window.config = {
+  routerBasename: '/',
+  extensions: [],
+  modes: [],
+  showStudyList: true,
+  dataSources: [
+    {
+      namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
+      sourceName: 'dicomweb',
+      configuration: {
+        friendlyName: 'dcmjs DICOMWeb Server',
+        name: 'DCM4CHEE',
+        wadoUriRoot: 'https://<docker-host>/dcm4chee-arc/aets/<aet>/wado',
+        qidoRoot: 'https://<docker-host>/dcm4chee-arc/aets/<aet>/rs',
+        wadoRoot: 'https://<docker-host>/dcm4chee-arc/aets/<aet>/rs',
+        qidoSupportsIncludeField: true,
+        supportsReject: true,
+        imageRendering: 'wadors',
+        thumbnailRendering: 'wadors',
+        enableStudyLazyLoad: true,
+        supportsFuzzyMatching: true,
+        supportsWildcard: true,
+        omitQuotationForMultipartRequest: true,
+      },
+    },
+  ],
+  defaultDataSourceName: 'dicomweb',
+};
