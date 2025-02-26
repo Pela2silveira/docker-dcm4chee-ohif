@@ -17,6 +17,10 @@ stop:
 start:
 	${DOCKER_COMPOSE_CMD} -p nginx-ohif start
 
+restart:
+	make stop
+	make start
+
 delete:
 	${DOCKER_COMPOSE_CMD} -p nginx-ohif down
 
