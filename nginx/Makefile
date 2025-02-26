@@ -9,20 +9,20 @@ configure:
 	sed 's/<docker-host>/${ARCHIVE_HOST}/g' templates/default.conf.template > conf/conf.d/default.conf;
 
 run:
-	${DOCKER_COMPOSE_CMD} -p nginx-ohif up -d
+	docker compose -p nginx-ohif up -d
 
 stop:
-	${DOCKER_COMPOSE_CMD} -p nginx-ohif stop
+	docker compose -p nginx-ohif stop
 
 start:
-	${DOCKER_COMPOSE_CMD} -p nginx-ohif start
+	docker compose -p nginx-ohif start
 
 restart:
 	make stop
 	make start
 
 delete:
-	${DOCKER_COMPOSE_CMD} -p nginx-ohif down
+	docker compose -p nginx-ohif down
 
 all: 
 	make configure
