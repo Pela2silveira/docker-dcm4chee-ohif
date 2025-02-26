@@ -20,6 +20,10 @@ stop:
 start:
 	${DOCKER_COMPOSE_CMD} -p dcm4chee start
 
+restart:
+	make stop
+	make start
+
 delete:
 	${DOCKER_COMPOSE_CMD} -p dcm4chee down
 	echo "deleting configuration files.."
