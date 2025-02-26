@@ -2,6 +2,7 @@ include *.env
 
 configure:
 	sed 's/<docker-host>/${ARCHIVE_HOST}/g;s/<aet>/${AE_TITLE}/g' templates/viewer-conf.js.template > conf/viewer-conf.js;
+	sed 's/<docker-host>/${ARCHIVE_HOST}/g;s/<aet>/${AE_TITLE}/g' templates/viewer-conf-new.js.template > conf/viewer-conf-new.js;
 	mkdir -p conf/sites-enabled
 	sed 's/<pacs-host>/${PACS_HOST}/g;s/<docker-host>/${ARCHIVE_HOST}/g' templates/sites-enabled/auth > conf/sites-enabled/auth;
 	sed 's/<pacs-host>/${PACS_HOST}/g;s/<docker-host>/${ARCHIVE_HOST}/g' templates/sites-enabled/pacs > conf/sites-enabled/pacs;
