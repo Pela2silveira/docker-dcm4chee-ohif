@@ -82,7 +82,7 @@ configure_pacs:
 	docker exec -it ldap ldapmodify -x -w "${LDAP_ROOTPASS}" -D "cn=admin,dc=dcm4che,dc=org" -H ldap://localhost:389 -f mwl.ldif
 
 log: 
-        docker exec -it arc tail -f /opt/wildfly/standalone/log/server.log
+	docker exec -it arc tail -f /opt/wildfly/standalone/log/server.log
 
 all:
 	make configure
