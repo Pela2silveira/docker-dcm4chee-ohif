@@ -5,6 +5,7 @@ configure:
 	mkdir -p conf
 	sed 's/<andes-secret>/${ANDES_SECRET}/g' templates/andes.json.template > conf/andes.json;
 	sed 's/<docker-host>/${ARCHIVE_HOST}/g' templates/ui.json.template > conf/ui.json;
+	sed 's/<docker-host>/${ARCHIVE_HOST}/g' templates/ohif.json.template > conf/ohif.json;
 	sed 's/<aet>/${AE_TITLE}/g' templates/dicom-dcm4chee-arc.properties.template > conf/dicom-dcm4chee-arc.properties;
 	sed 's/<aet>/${AE_TITLE}/g' templates/weasis-pacs-connector.properties.template > conf/weasis-pacs-connector.properties;
 	sed 's/<archive-name>/${ARCHIVE_DEVICE_NAME}/g' templates/weasis.ldif.template > conf/weasis.ldif;
