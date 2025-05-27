@@ -42,7 +42,7 @@ delete_all:
 add_clients:
 	echo "connecting to keycloak..."
 	docker exec -it keycloak kcadm.sh config credentials --server http://keycloak:8880/auth --realm master --user ${KEYCLOAK_USER} --password ${KEYCLOAK_PASSWORD};
-	#docker cp conf/ohif.json dcm4chee-keycloak-1:ohif.json;
+	#docker cp conf/ohif.json keycloak:ohif.json;
 	echo "copying configuration files to container..."
 	docker cp conf/andes.json keycloak:andes.json;
 	docker cp conf/ui.json keycloak:ui.json;
