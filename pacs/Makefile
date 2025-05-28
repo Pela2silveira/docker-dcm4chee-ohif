@@ -52,7 +52,7 @@ add_clients:
 	docker exec -it keycloak kcadm.sh create clients -r dcm4che -f ohif.json;
 	docker exec -it keycloak bash -c 'kcadm.sh create clients -r dcm4che -f ui.json' || echo 'client exist';
 	docker exec -it keycloak bash -c 'kcadm.sh create roles -r dcm4che -s name=user' || echo 'role exist'
-	#docker exec -it keycloak bash -c 'kcadm.sh add-roles --uusername service-account-andes --rolename user -r dcm4che' || echo 'client role exists'
+	docker exec -it keycloak bash -c 'kcadm.sh add-roles --uusername service-account-andes --rolename user -r dcm4che' || echo 'client role exists'
 
 add_user:
 	docker exec -it keycloak kcadm.sh config credentials --server http://keycloak:8880/auth --realm master --user ${KEYCLOAK_USER} --password ${KEYCLOAK_PASSWORD};
