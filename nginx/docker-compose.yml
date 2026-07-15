@@ -1,7 +1,7 @@
 services:
   nginx:
     container_name: nginx
-    image: ohif/viewer
+    image: ohif/viewer:v4.12.51.21579
     ports:
       - "80:80"
       - "443:443"
@@ -16,7 +16,7 @@ services:
       - ./conf/viewer-conf.js:/usr/share/nginx/html/app-config.js
     restart: always
   ohifv3:
-    image: ohif/app
+    image: ohif/app:v3.12.2
     ports:
       - "8888:80"
     #  - "443:443"
