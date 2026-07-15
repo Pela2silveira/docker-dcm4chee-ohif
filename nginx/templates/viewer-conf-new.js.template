@@ -1,3 +1,10 @@
+// onnxruntime-web / @cornerstonejs/ai ship Emscripten glue that references the Node
+// global __filename; its `typeof __filename` guard is mis-minified to `true`, so it
+// throws ReferenceError in the browser when segmentation/AI WASM re-initializes.
+// app-config.js loads before the app bundle, so defining these globals is a safe no-op shim.
+window.__filename = window.__filename || '';
+window.__dirname = window.__dirname || '/';
+
 window.config = {
   routerBasename: '/',
   extensions: [],
