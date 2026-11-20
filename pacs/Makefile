@@ -85,6 +85,17 @@ configure_pacs:
 log: 
 	docker exec -it arc tail -f /opt/wildfly/standalone/log/server.log
 
+# Alloy → Loki (solo ERROR/Exception de server.log). Ver alloy.env.example.
+logs-obs-up:
+	@test -f alloy.env || (echo "Falta alloy.env — cp alloy.env.example alloy.env" && exit 1)
+	docker compose -p dcm4chee -f docker-compose.yml -f docker-compose.logging.yml up -d alloy-logs
+
+logs-obs-down:
+	docker compose -p dcm4chee -f docker-compose.yml -f docker-compose.logging.yml stop alloy-logs
+
+logs-obs-logs:
+	docker logs -f dcm4chee-alloy-logs
+
 all:
 	make configure
 	make run

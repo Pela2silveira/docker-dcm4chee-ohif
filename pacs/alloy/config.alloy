@@ -1,0 +1,54 @@
+// Ship WildFly server.log errors/exceptions → Loki (andes/observabilidad).
+// LAN / prueba: push directo a Loki, sin auth.
+//
+// Env (ver alloy.env.example):
+//   LOKI_PUSH_URL
+//   DEPLOYMENT_ENVIRONMENT
+//   SERVICE_NAME
+//   WILDFLY_LOG_PATH
+
+logging {
+  level  = "info"
+  format = "logfmt"
+}
+
+local.file_match "wildfly" {
+  path_targets = [{
+    __path__               = env("WILDFLY_LOG_PATH"),
+    job                    = "dcm4chee-arc",
+    service_name           = env("SERVICE_NAME"),
+    deployment_environment = env("DEPLOYMENT_ENVIRONMENT"),
+  }]
+}
+
+loki.source.file "wildfly" {
+  targets    = local.file_match.wildfly.targets
+  forward_to = [loki.process.errors.receiver]
+}
+
+loki.process "errors" {
+  forward_to = [loki.write.central.receiver]
+
+  // Bloque WildFly: timestamp + stack (at … / Caused by:)
+  stage.multiline {
+    firstline     = "^\\d{4}-\\d{2}-\\d{2}"
+    max_wait_time = "3s"
+  }
+
+  // Solo ERROR / Exception / FATAL / Caused by
+  stage.match {
+    selector            = "{job=\"dcm4chee-arc\"} !~ \"(?i)(ERROR|Exception|FATAL|Caused by:)\""
+    action              = "drop"
+    drop_counter_reason = "not_error"
+  }
+
+  stage.label_drop {
+    values = ["filename", "detected_level"]
+  }
+}
+
+loki.write "central" {
+  endpoint {
+    url = env("LOKI_PUSH_URL")
+  }
+}
