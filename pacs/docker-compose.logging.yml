@@ -1,0 +1,33 @@
+# Overlay opcional: Alloy tailea WildFly server.log y pushea solo errores a Loki.
+#
+#   cp alloy.env.example alloy.env   # ajustar LOKI_PUSH_URL
+#   make logs-obs-up
+#
+# Requiere el volume host de arc:
+#   /var/local/dcm4chee-arc/wildfly/log/server.log
+
+services:
+  alloy-logs:
+    image: grafana/alloy:v1.20.1
+    container_name: dcm4chee-alloy-logs
+    restart: unless-stopped
+    env_file:
+      - alloy.env
+    environment:
+      # Path dentro del contenedor (host: /var/local/dcm4chee-arc/wildfly/log)
+      WILDFLY_LOG_PATH: /var/log/wildfly/server.log
+    command:
+      - run
+      - /etc/alloy/config.alloy
+      - --storage.path=/var/lib/alloy/data
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --stability.level=generally-available
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - /var/local/dcm4chee-arc/wildfly/log:/var/log/wildfly:ro
+      - alloy-logs-data:/var/lib/alloy/data
+    ports:
+      - "${ALLOY_UI_PORT:-12345}:12345"
+
+volumes:
+  alloy-logs-data:
